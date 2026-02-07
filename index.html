@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Site Admin Office - Compliance Infrastructure for London Construction Firms">
-    <title>Site Admin Office | Compliance Infrastructure for London Construction</title>
+    <meta name="description" content="Site Admin Office - Compliance Infrastructure for Construction Firms">
+    <title>Site Admin Office | Compliance Infrastructure for Construction</title>
     <style>
         * {
             margin: 0;
@@ -68,12 +68,12 @@
             padding-bottom: 10px;
         }
 
-        .services-list, .clients-list {
+        .services-list {
             list-style: none;
             padding-left: 0;
         }
 
-        .services-list li, .clients-list li {
+        .services-list li {
             padding: 12px 0;
             padding-left: 30px;
             position: relative;
@@ -138,7 +138,6 @@
             margin-top: 40px;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 40px 20px;
@@ -178,7 +177,7 @@
                 font-size: 1em;
             }
 
-            .services-list li, .clients-list li {
+            .services-list li {
                 font-size: 0.95em;
             }
         }
@@ -188,28 +187,28 @@
     <div class="container">
         <header>
             <h1>Site Admin Office</h1>
-            <p class="tagline">Compliance Infrastructure for London Construction Firms</p>
+            <p class="tagline">Compliance Infrastructure for Construction Firms</p>
             <p class="intro">We eliminate the administrative bottleneck that pulls Project Managers away from site management.</p>
         </header>
 
         <section>
             <h2>Our Services</h2>
             <ul class="services-list">
-                <li>Sub-contractor insurance verification (30 days advance, not reactive)</li>
-                <li>H&S documentation and certification tracking</li>
-                <li>Borough permit coordination (Westminster, K&C, Camden, etc.)</li>
-                <li>Party Wall Act liaison and neighbor notifications</li>
+                <li>Sub-contractor insurance verification and renewal tracking</li>
+                <li>Health & Safety documentation and certification management</li>
+                <li>Building permit coordination and renewal reminders</li>
+                <li>Regulatory compliance liaison and documentation</li>
             </ul>
         </section>
 
         <section>
             <h2>Who We Work With</h2>
-            <p style="font-size: 1.05em; line-height: 1.8;">Renovation specialists, basement contractors, and design-build firms managing projects across Mayfair, Chelsea, Pimlico, Kensington, and surrounding London boroughs.</p>
+            <p style="font-size: 1.05em; line-height: 1.8;">Mid-sized construction firms managing multiple simultaneous projects across residential, commercial, and specialist construction.</p>
         </section>
 
         <div class="problem-section">
             <h2>The Problem We Solve</h2>
-            <p>Most construction PMs spend 5-10 hours per week chasing compliance paperwork instead of managing sites.</p>
+            <p>Most construction Project Managers spend 5-10 hours per week chasing compliance paperwork instead of managing sites.</p>
             <p>We provide dedicated compliance operations so your PMs can focus on delivery.</p>
         </div>
 
@@ -226,153 +225,3 @@
     </div>
 </body>
 </html>
-```
-
----
-
-## 🚀 **SETUP INSTRUCTIONS (30 MINUTES)**
-
-### **STEP 1: Create GitHub Account (5 minutes)**
-
-If you don't have a GitHub account yet:
-
-1. Go to **github.com**
-2. Click **"Sign up"**
-3. Use a professional email (e.g., juwon@siteadminoffice.com or personal email)
-4. Choose username (e.g., `siteadminoffice` or `juwonadeleke`)
-5. Verify email
-
----
-
-### **STEP 2: Create Repository (3 minutes)**
-
-1. Once logged in, click the **"+" icon** (top right) → **"New repository"**
-
-2. **Repository name:** `siteadminoffice.github.io`
-   - ⚠️ **IMPORTANT:** Must end in `.github.io` for custom domain to work properly
-
-3. **Description:** "Site Admin Office - Landing Page"
-
-4. Select **"Public"**
-
-5. ✅ Check **"Add a README file"**
-
-6. Click **"Create repository"**
-
----
-
-### **STEP 3: Upload HTML File (5 minutes)**
-
-1. In your new repository, click **"Add file"** → **"Create new file"**
-
-2. **Name the file:** `index.html`
-
-3. **Copy the entire HTML code** from above (from `<!DOCTYPE html>` to `</html>`)
-
-4. **Paste it** into the text editor
-
-5. Scroll to bottom, click **"Commit new file"**
-
----
-
-### **STEP 4: Enable GitHub Pages (2 minutes)**
-
-1. In your repository, click **"Settings"** (top menu bar)
-
-2. In left sidebar, click **"Pages"**
-
-3. Under **"Source"**:
-   - Branch: Select **"main"**
-   - Folder: Select **"/ (root)"**
-   - Click **"Save"**
-
-4. **Wait 2-3 minutes**
-
-5. Refresh the page - you'll see: **"Your site is live at https://[username].github.io/"**
-
-**Test it:** Click that URL - your site should load!
-
----
-
-### **STEP 5: Add Custom Domain in GitHub (3 minutes)**
-
-1. Still in **Settings → Pages**
-
-2. Under **"Custom domain"**, enter: `siteadminoffice.com`
-
-3. Click **"Save"**
-
-4. **DO NOT check "Enforce HTTPS" yet** (do this after DNS is configured)
-
-5. GitHub will create a `CNAME` file in your repository automatically
-
----
-
-### **STEP 6: Configure DNS in Namecheap (10 minutes)**
-
-#### **A) Log into Namecheap:**
-
-1. Go to **namecheap.com** and log in
-
-2. Click **"Domain List"** (left sidebar)
-
-3. Find `siteadminoffice.com` and click **"Manage"**
-
-4. Click **"Advanced DNS"** tab
-
----
-
-#### **B) Delete Existing Records (If Any):**
-
-- Delete any existing **A Records** for `@` host
-- Delete any existing **CNAME Records** for `www` host
-- Keep **other records** (MX records for email, etc.)
-
----
-
-#### **C) Add New A Records:**
-
-Click **"Add New Record"** and add these **4 A Records** (one at a time):
-
-**Record 1:**
-```
-Type: A Record
-Host: @
-Value: 185.199.108.153
-TTL: Automatic
-```
-
-**Record 2:**
-```
-Type: A Record
-Host: @
-Value: 185.199.109.153
-TTL: Automatic
-```
-
-**Record 3:**
-```
-Type: A Record
-Host: @
-Value: 185.199.110.153
-TTL: Automatic
-```
-
-**Record 4:**
-```
-Type: A Record
-Host: @
-Value: 185.199.111.153
-TTL: Automatic
-```
-
----
-
-#### **D) Add CNAME Record for www:**
-
-Click **"Add New Record"**:
-```
-Type: CNAME Record
-Host: www
-Value: [yourusername].github.io
-TTL: Automatic
