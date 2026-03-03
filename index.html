@@ -1,1274 +1,945 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Site Admin Office - External compliance infrastructure for construction firms. Stop losing 15 hours a week chasing subcontractor compliance.">
-    <title>Site Admin Office | External Site Admin for Construction Firms</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1a2332;
-            --navy-mid: #243044;
-            --fog: #c5d3de;
-            --paper: #eef2f6;
-            --white: #ffffff;
-            --amber-btn: #9a5c00;
-            --amber-on-navy: #f5a623;
-            --green-good: #1a6b35;
-            --red-bad: #9b1c1c;
-            --text: #111827;
-            --text-mid: #1e2d3d;
-            --text-light: #374f63;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Barlow', sans-serif;
-            background: var(--white);
-            color: var(--text);
-            font-size: 18px;
-            line-height: 1.8;
-        }
-
-        a:focus-visible, button:focus-visible {
-            outline: 3px solid var(--amber-on-navy);
-            outline-offset: 3px;
-        }
-
-        /* NAV */
-        nav {
-            background: var(--navy);
-            padding: 18px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 3px solid var(--amber-on-navy);
-        }
-
-        .nav-logo {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .nav-logo span { color: var(--amber-on-navy); }
-
-        .nav-cta {
-            background: var(--amber-on-navy);
-            color: var(--navy);
-            padding: 11px 22px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 1em;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .nav-cta:hover { background: #ffc04a; }
-
-        /* ─── CHANGE 1: SCENE SETTER ─────────────────── */
-        .scene-setter {
-            background: var(--navy);
-            padding: 48px 40px 0;
-        }
-
-        .scene-setter-inner {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .scene-block {
-            border-left: 4px solid var(--amber-on-navy);
-            background: rgba(255,255,255,0.04);
-            padding: 28px 32px;
-            position: relative;
-        }
-
-        .scene-timestamp {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.78em;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--amber-on-navy);
-            font-weight: 500;
-            margin-bottom: 16px;
-            display: block;
-            background: rgba(245,166,35,0.12);
-            padding: 6px 12px;
-            display: inline-block;
-        }
-
-        .scene-text {
-            font-size: 1.05em;
-            font-weight: 300;
-            color: rgba(255,255,255,0.88);
-            line-height: 1.85;
-        }
-
-        .scene-text strong {
-            color: var(--amber-on-navy);
-            font-weight: 600;
-        }
-
-        /* HERO */
-        .hero {
-            background: var(--navy);
-            padding: 40px 40px 70px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 40%; height: 100%;
-            background: repeating-linear-gradient(
-                -55deg, transparent, transparent 8px,
-                rgba(255,255,255,0.025) 8px, rgba(255,255,255,0.025) 9px
-            );
-            pointer-events: none;
-        }
-
-        .hero-inner {
-            max-width: 760px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-eyebrow {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.9em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--amber-on-navy);
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: clamp(2.4em, 5vw, 3.8em);
-            font-weight: 800;
-            line-height: 1.15;
-            color: var(--white);
-            letter-spacing: -0.5px;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 em { font-style: normal; color: var(--amber-on-navy); }
-
-        .hero-sub {
-            font-size: 1.15em;
-            color: rgba(255,255,255,0.93);
-            font-weight: 400;
-            max-width: 580px;
-            line-height: 1.85;
-            margin-bottom: 40px;
-        }
-
-        .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
-
-        .btn-primary {
-            background: var(--amber-on-navy);
-            color: var(--navy);
-            padding: 16px 32px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1em;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: background 0.2s, transform 0.15s;
-            display: inline-block;
-            border: 2px solid transparent;
-        }
-
-        .btn-primary:hover { background: #ffc04a; transform: translateY(-1px); }
-
-        .btn-ghost {
-            background: transparent;
-            color: var(--white);
-            padding: 16px 32px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1em;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            border: 2px solid rgba(255,255,255,0.6);
-            transition: border-color 0.2s;
-            display: inline-block;
-        }
-
-        .btn-ghost:hover { border-color: var(--white); }
-
-        /* COST BAR */
-        .cost-bar { background: var(--amber-btn); padding: 20px 40px; }
-        .cost-bar-inner { max-width: 760px; margin: 0 auto; }
-        .cost-bar-inner p {
-            font-size: 1.05em;
-            font-weight: 600;
-            color: var(--white);
-            line-height: 1.65;
-        }
-
-        /* GENERAL SECTIONS */
-        .section { padding: 70px 40px; }
-        .section-inner { max-width: 760px; margin: 0 auto; }
-
-        .section-label {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.85em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--amber-btn);
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .section h2 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: clamp(1.9em, 3vw, 2.6em);
-            font-weight: 700;
-            color: var(--navy);
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .section p {
-            font-size: 1.05em;
-            color: var(--text-mid);
-            line-height: 1.85;
-            margin-bottom: 16px;
-        }
-
-        .section p:last-child { margin-bottom: 0; }
-
-        /* PROBLEM */
-        .problem { background: var(--paper); border-top: 4px solid var(--navy); }
-
-        /* ─── CHANGE 2: THREE STAT ROW ───────────────── */
-        .stat-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            margin: 32px 0;
-        }
-
-        .stat-box {
-            background: var(--white);
-            border: 2px solid var(--fog);
-            padding: 24px;
-            border-top: 4px solid var(--amber-btn);
-        }
-
-        .stat-num {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 2.8em;
-            font-weight: 800;
-            color: var(--navy);
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 0.95em;
-            color: var(--text-mid);
-            font-weight: 400;
-            line-height: 1.7;
-        }
-
-        .highlight-line {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.35em;
-            font-weight: 700;
-            color: var(--navy);
-            border-left: 5px solid var(--amber-btn);
-            padding-left: 18px;
-            margin: 28px 0;
-            line-height: 1.4;
-        }
-
-        /* FAILURE LIST */
-        .failure-list {
-            list-style: none;
-            margin: 24px 0 0;
-            border: 2px solid var(--fog);
-            background: var(--white);
-        }
-
-        .failure-list li {
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--fog);
-            font-size: 0.98em;
-            color: var(--text-mid);
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            line-height: 1.65;
-        }
-
-        .failure-list li:last-child { border-bottom: none; }
-
-        .failure-list li::before {
-            content: '//';
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75em;
-            color: var(--red-bad);
-            flex-shrink: 0;
-            margin-top: 3px;
-            font-weight: 700;
-        }
-
-        /* COMPARISON */
-        .comparison { background: var(--white); }
-
-        .vs-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            margin-top: 32px;
-            border: 2px solid var(--fog);
-        }
-
-        .vs-col { padding: 30px; }
-        .vs-col.bad { background: #fdf4f4; border-right: 2px solid var(--fog); }
-        .vs-col.good { background: #f0f8f2; }
-
-        .vs-col-head {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1em;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-weight: 800;
-            margin-bottom: 18px;
-        }
-
-        .vs-col.bad .vs-col-head { color: var(--red-bad); }
-        .vs-col.good .vs-col-head { color: var(--green-good); }
-
-        .vs-item {
-            font-size: 1em;
-            color: var(--text-mid);
-            line-height: 1.75;
-            margin-bottom: 14px;
-            padding-left: 26px;
-            position: relative;
-        }
-
-        .vs-item::before { position: absolute; left: 0; font-weight: 800; font-size: 1.1em; }
-        .vs-col.bad .vs-item::before { content: "✗"; color: var(--red-bad); }
-        .vs-col.good .vs-item::before { content: "✓"; color: var(--green-good); }
-
-        .vs-footer {
-            margin-top: 24px;
-            padding: 18px 22px;
-            background: var(--paper);
-            border-left: 5px solid var(--fog);
-            font-size: 1em;
-            color: var(--text-mid);
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        /* WHAT WE DO */
-        .what-we-do { background: var(--paper); }
-
-        .service-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 32px;
-        }
-
-        .service-card {
-            background: var(--white);
-            border: 2px solid var(--fog);
-            padding: 28px;
-            border-top: 4px solid var(--navy);
-        }
-
-        .service-card-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.15em;
-            font-weight: 700;
-            color: var(--navy);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
-        }
-
-        .service-list { list-style: none; padding: 0; }
-
-        .service-list li {
-            font-size: 1em;
-            color: var(--text-mid);
-            line-height: 1.75;
-            padding: 8px 0 8px 22px;
-            position: relative;
-            border-bottom: 1px solid var(--paper);
-        }
-
-        .service-list li:last-child { border-bottom: none; }
-
-        .service-list li::before {
-            content: '—';
-            position: absolute;
-            left: 0;
-            color: var(--amber-btn);
-            font-weight: 700;
-        }
-
-        .boundary-note {
-            background: var(--navy);
-            color: var(--white);
-            padding: 22px 26px;
-            margin-top: 20px;
-            font-size: 1em;
-            line-height: 1.8;
-        }
-
-        .boundary-note strong { color: var(--amber-on-navy); }
-
-        /* ─── CHANGE 3: FREE AUDIT SECTION ──────────── */
-        .audit-section {
-            background: var(--white);
-            border-top: 4px solid var(--amber-btn);
-            padding: 70px 40px;
-        }
-
-        .audit-inner {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .audit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 32px;
-            align-items: start;
-        }
-
-        .audit-copy p {
-            font-size: 1.05em;
-            color: var(--text-mid);
-            line-height: 1.85;
-            margin-bottom: 16px;
-        }
-
-        .audit-checklist {
-            list-style: none;
-            margin: 20px 0;
-        }
-
-        .audit-checklist li {
-            padding: 10px 0 10px 28px;
-            border-bottom: 1px solid var(--fog);
-            font-size: 0.98em;
-            color: var(--text-mid);
-            position: relative;
-            line-height: 1.65;
-        }
-
-        .audit-checklist li:last-child { border-bottom: none; }
-
-        .audit-checklist li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--green-good);
-            font-weight: 800;
-        }
-
-        .audit-promise {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.7em;
-            letter-spacing: 0.08em;
-            color: var(--text-light);
-            margin-top: 8px;
-            line-height: 1.7;
-        }
-
-        /* ─── CHANGE 4: AUDIT FORM ───────────────────── */
-        .audit-form {
-            background: var(--navy);
-            padding: 32px 28px;
-        }
-
-        .audit-form-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.3em;
-            font-weight: 700;
-            color: var(--white);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-
-        .audit-form-sub {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.65em;
-            color: rgba(245,166,35,0.7);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .form-field { margin-bottom: 14px; }
-
-        .form-field label {
-            display: block;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.65em;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 5px;
-        }
-
-        .form-field input,
-        .form-field select,
-        .form-field textarea {
-            width: 100%;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: var(--white);
-            font-family: 'Barlow', sans-serif;
-            font-size: 0.95em;
-            font-weight: 300;
-            padding: 10px 14px;
-            outline: none;
-            transition: border-color 0.2s;
-            -webkit-appearance: none;
-            border-radius: 0;
-        }
-
-        .form-field input::placeholder,
-        .form-field textarea::placeholder {
-            color: rgba(255,255,255,0.25);
-        }
-
-        .form-field input:focus,
-        .form-field select:focus,
-        .form-field textarea:focus {
-            border-color: var(--amber-on-navy);
-        }
-
-        .form-field select {
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.3)'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            background-color: rgba(255,255,255,0.06);
-            padding-right: 32px;
-        }
-
-        .form-field select option {
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        .form-field textarea {
-            resize: vertical;
-            min-height: 72px;
-        }
-
-        .form-submit {
-            width: 100%;
-            background: var(--amber-on-navy);
-            color: var(--navy);
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1em;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 15px;
-            border: none;
-            cursor: pointer;
-            margin-top: 6px;
-            transition: background 0.2s;
-        }
-
-        .form-submit:hover { background: #ffc04a; }
-
-        .form-note {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.62em;
-            color: rgba(255,255,255,0.35);
-            letter-spacing: 0.06em;
-            text-align: center;
-            margin-top: 12px;
-            line-height: 1.6;
-        }
-
-        /* OBJECTIONS */
-        .objections { background: var(--paper); border-top: 4px solid var(--navy); }
-        .objections .section-label { color: var(--amber-btn); }
-        .objections h2 { color: var(--navy); }
-
-        .faq-list { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
-
-        .faq-item {
-            background: var(--white);
-            border: 2px solid var(--fog);
-            border-radius: 2px;
-            padding: 30px 32px;
-        }
-
-        .faq-q {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.25em;
-            font-weight: 700;
-            color: var(--navy);
-            margin-bottom: 16px;
-            line-height: 1.35;
-        }
-
-        .faq-q-prefix {
-            color: var(--amber-btn);
-            margin-right: 6px;
-            font-weight: 800;
-        }
-
-        .faq-a {
-            font-size: 1.02em;
-            color: var(--text-mid);
-            line-height: 1.9;
-            margin-bottom: 14px;
-        }
-
-        .faq-a:last-child { margin-bottom: 0; }
-        .faq-a strong { color: var(--navy); font-weight: 700; }
-
-        .faq-callout {
-            background: var(--navy);
-            border-left: 4px solid var(--amber-on-navy);
-            padding: 16px 20px;
-            margin-top: 16px;
-        }
-
-        .faq-callout p {
-            font-size: 1em;
-            color: var(--white) !important;
-            margin: 0 !important;
-            line-height: 1.8;
-        }
-
-        .faq-callout strong { color: var(--amber-on-navy) !important; }
-
-        .chase-steps { list-style: none; padding: 0; margin: 12px 0; }
-
-        .chase-steps li {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--paper);
-            font-size: 1em;
-            color: var(--text-mid);
-            line-height: 1.7;
-        }
-
-        .chase-steps li:last-child { border-bottom: none; }
-
-        .chase-num {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 800;
-            font-size: 0.9em;
-            color: var(--white);
-            background: var(--amber-btn);
-            min-width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        /* TIMELINE */
-        .timeline { background: var(--white); }
-
-        .week-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
-            margin-top: 32px;
-            border: 2px solid var(--fog);
-        }
-
-        .week-item { padding: 24px 20px; border-right: 2px solid var(--fog); }
-        .week-item:last-child { border-right: none; }
-
-        .week-label {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.85em;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--amber-btn);
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .week-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1em;
-            font-weight: 700;
-            color: var(--navy);
-            margin-bottom: 10px;
-        }
-
-        .week-desc { font-size: 0.95em; color: var(--text-light); line-height: 1.75; }
-
-        .time-note {
-            margin-top: 24px;
-            background: var(--paper);
-            padding: 20px 24px;
-            border-left: 5px solid var(--navy);
-        }
-
-        .time-note p { font-size: 1em; color: var(--text-mid); margin: 0; line-height: 1.8; }
-
-        /* CTA */
-        .cta-section { background: var(--navy); padding: 70px 40px; text-align: center; }
-
-        .cta-section h2 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: clamp(2em, 4vw, 3em);
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1.15;
-            margin-bottom: 14px;
-        }
-
-        .cta-section > p {
-            font-size: 1.1em;
-            color: rgba(255,255,255,0.92);
-            margin-bottom: 40px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        .cta-btn-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .cta-btn-main {
-            background: var(--amber-on-navy);
-            color: var(--navy);
-            padding: 20px 48px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.2em;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: background 0.2s, transform 0.15s;
-            display: inline-block;
-            border: 2px solid transparent;
-        }
-
-        .cta-btn-main:hover { background: #ffc04a; transform: translateY(-2px); }
-
-        .cta-divider {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.95em;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-family: 'Barlow Condensed', sans-serif;
-        }
-
-        .cta-btn-secondary {
-            background: transparent;
-            color: var(--white);
-            padding: 16px 40px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1em;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            border: 2px solid rgba(255,255,255,0.6);
-            transition: border-color 0.2s;
-            display: inline-block;
-        }
-
-        .cta-btn-secondary:hover { border-color: var(--white); }
-
-        .cta-sub { margin-top: 24px; font-size: 0.95em; color: rgba(255,255,255,0.78); line-height: 1.7; }
-
-        /* CONTACT */
-        .contact { background: #111b27; padding: 50px 40px; text-align: center; }
-
-        .contact h2 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .contact a {
-            color: var(--amber-on-navy);
-            font-size: 1.1em;
-            font-weight: 500;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            transition: color 0.2s;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .contact a:hover { color: #ffc04a; }
-
-        footer {
-            background: #0d141e;
-            text-align: center;
-            padding: 22px 20px;
-            color: rgba(255,255,255,0.45);
-            font-size: 0.9em;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 700px) {
-            nav { padding: 16px 20px; }
-            .scene-setter { padding: 32px 24px 0; }
-            .scene-block { padding: 20px 20px; }
-            .hero { padding: 32px 24px 55px; }
-            .section { padding: 50px 24px; }
-            .audit-section { padding: 50px 24px; }
-            .cost-bar { padding: 16px 24px; }
-            .stat-row { grid-template-columns: 1fr 1fr; }
-            .vs-grid { grid-template-columns: 1fr; }
-            .vs-col.bad { border-right: none; border-bottom: 2px solid var(--fog); }
-            .service-grid { grid-template-columns: 1fr; }
-            .audit-grid { grid-template-columns: 1fr; }
-            .week-grid { grid-template-columns: 1fr 1fr; }
-            .week-item { border-right: none; border-bottom: 2px solid var(--fog); }
-            .week-item:nth-child(odd) { border-right: 2px solid var(--fog); }
-            .week-item:last-child { border-bottom: none; }
-            .hero-cta-group { flex-direction: column; }
-            .cta-section { padding: 50px 24px; }
-            .contact { padding: 40px 24px; }
-            .faq-item { padding: 22px 20px; }
-        }
-
-        @media (max-width: 400px) {
-            .stat-row { grid-template-columns: 1fr; }
-            .week-grid { grid-template-columns: 1fr; }
-            .week-item { border-right: none; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Influence Roundtable — Private Executive Dinner</title>
+<meta name="description" content="A private executive dinner for senior marketing leaders. 12 seats. Curated placement. No pitches.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #0a0a0a;
+  --deep: #111111;
+  --card: #161616;
+  --border: #222222;
+  --gold: #b8956a;
+  --gold-light: #d4b896;
+  --gold-dim: #8a6d4b;
+  --cream: #e8e0d4;
+  --text: #a09890;
+  --text-light: #c8c0b8;
+  --white: #f0ebe4;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* ===== NOISE TEXTURE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ===== UTILITY ===== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold-dim);
+  margin: 0 auto;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes widthGrow {
+  from { width: 0; }
+  to { width: 60px; }
+}
+
+.animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(184, 149, 106, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-logo {
+  width: 340px;
+  max-width: 80%;
+  margin-bottom: 60px;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  animation: fadeUp 1s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 50px;
+  animation: fadeUp 1s ease 0.6s forwards;
+  opacity: 0;
+}
+
+.hero-cta {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gold);
+  padding: 16px 48px;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  animation: fadeUp 1s ease 0.9s forwards;
+  opacity: 0;
+}
+
+.hero-cta:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(184, 149, 106, 0.15);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeIn 1s ease 1.5s forwards;
+  opacity: 0;
+}
+
+.scroll-indicator span {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  margin: 0 auto;
+}
+
+/* ===== PROBLEM SECTION ===== */
+.problem {
+  padding: 120px 24px;
+  text-align: center;
+}
+
+.problem p {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 400;
+  color: var(--text-light);
+  line-height: 1.8;
+  max-width: 680px;
+  margin: 0 auto 32px;
+}
+
+.problem p:last-of-type {
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 0;
+}
+
+/* ===== FORMAT SECTION ===== */
+.format {
+  padding: 100px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.section-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.format-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.format-item {
+  padding: 40px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  position: relative;
+}
+
+.format-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+}
+
+.format-number {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--gold-dim);
+  margin-bottom: 16px;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.format-item h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.format-item p {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ===== FILTER / WHO SECTION ===== */
+.who {
+  padding: 120px 24px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.who h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 40px;
+  line-height: 1.3;
+}
+
+.who p {
+  max-width: 600px;
+  margin: 0 auto 24px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.who p:last-of-type {
+  color: var(--gold-dim);
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+/* ===== TESTIMONIAL ===== */
+.testimonial {
+  padding: 100px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.testimonial blockquote {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-light);
+  line-height: 1.9;
+  max-width: 700px;
+  margin: 0 auto 32px;
+  position: relative;
+}
+
+.testimonial cite {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+/* ===== GORDON SECTION ===== */
+.gordon {
+  padding: 100px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.gordon-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.gordon-inner .section-label {
+  margin-bottom: 40px;
+}
+
+.gordon-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  margin: 0 auto 32px;
+  display: block;
+  border: 1px solid var(--border);
+  filter: grayscale(20%);
+  transition: filter 0.4s ease;
+}
+
+.gordon-photo:hover {
+  filter: grayscale(0%);
+}
+
+.gordon-inner h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.gordon-credentials {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 2;
+  margin-bottom: 28px;
+}
+
+.gordon-credentials span {
+  display: inline;
+  white-space: nowrap;
+}
+
+.gordon-credentials span::after {
+  content: '  ·  ';
+  color: var(--gold-dim);
+}
+
+.gordon-credentials span:last-child::after {
+  content: '';
+}
+
+.gordon-statement {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.8vw, 1.55rem);
+  font-style: italic;
+  color: var(--gold);
+  line-height: 1.8;
+  margin-top: 12px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== DETAILS SECTION ===== */
+.details {
+  padding: 100px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.detail-item {
+  text-align: center;
+  padding: 24px;
+}
+
+.detail-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 10px;
+}
+
+.detail-value {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+/* ===== VIDEO PLACEHOLDER ===== */
+.video-section {
+  padding: 80px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.video-container {
+  max-width: 640px;
+  margin: 0 auto;
+  aspect-ratio: 16/9;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-container:hover {
+  border-color: var(--gold-dim);
+}
+
+.video-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(184, 149, 106, 0.03) 0%, transparent 70%);
+}
+
+.play-btn {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.video-container:hover .play-btn {
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(184, 149, 106, 0.1);
+}
+
+.play-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--gold);
+  margin-left: 3px;
+}
+
+.video-label {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== FORM SECTION ===== */
+.apply {
+  padding: 120px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.apply-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.apply h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.apply > .container > p,
+.apply-inner > p {
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 48px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--deep);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 300;
+  transition: border-color 0.3s ease;
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--gold-dim);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #555;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  background: var(--gold);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  margin-top: 32px;
+}
+
+.submit-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(184, 149, 106, 0.15);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 60px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer-logo {
+  width: 180px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.footer p {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #444;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .hero {
+    padding: 60px 20px;
+    min-height: 90vh;
+  }
+
+  .hero-logo {
+    width: 260px;
+    margin-bottom: 40px;
+  }
+
+  .hero-sub {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-cta {
+    padding: 14px 36px;
+    font-size: 12px;
+  }
+
+  .problem, .who, .testimonial, .gordon, .apply {
+    padding: 80px 20px;
+  }
+
+  .format, .details, .video-section {
+    padding: 80px 20px;
+  }
+
+  .format-item {
+    padding: 28px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .testimonial blockquote::before {
+    font-size: 3rem;
+    top: -15px;
+    left: 0;
+  }
+
+  .gordon-credentials span::after {
+    content: '  ·  ';
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+/* ===== SUCCESS STATE ===== */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.form-success h3 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.form-success p {
+  color: var(--text);
+  font-size: 15px;
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav aria-label="Main navigation">
-    <div class="nav-logo">Site Admin <span>Office</span></div>
-    <a href="#audit" class="nav-cta">Free Audit →</a>
-</nav>
-
-<!-- ─── CHANGE 1: SCENE SETTER ─────────────────────────────── -->
-<div class="scene-setter">
-    <div class="scene-setter-inner">
-        <div class="scene-block">
-            <span class="scene-timestamp">Thursday // 19:47 // Site Office</span>
-            <p class="scene-text">
-                It's 7pm and you're still at your desk because a sub's public liability expired
-                <strong>last Tuesday</strong> — and you only found out this morning, from the site manager,
-                not your files. The groundworks crew is on site tomorrow at 7am.
-                You've called twice. No answer. You're now chasing the insurance broker directly.
-                Meanwhile, <strong>three other certs are expiring this month</strong> and nobody is tracking them.
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- HERO -->
-<section class="hero" aria-label="Introduction">
-    <div class="hero-inner">
-        <p class="hero-eyebrow">Site Admin Office — External Site Admin for Construction Firms</p>
-        <h1>This Isn't a People Problem.<br><em>It's Infrastructure.</em></h1>
-        <p class="hero-sub">At 5+ active sites, manual tracking breaks structurally — every time. Not because your team isn't trying. Because the volume outgrew the system months ago. We run the compliance coordination layer so nothing slips through.</p>
-        <div class="hero-cta-group">
-            <a href="#audit" class="btn-primary">Get Free Compliance Audit →</a>
-            <a href="https://calendly.com/juwon-siteadminoffice" class="btn-ghost" target="_blank" rel="noopener">Book a 15-Min Call</a>
-        </div>
-    </div>
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <img src="logo.png" alt="Influence Roundtable" class="hero-logo">
+  <h1>Twelve Seats. One Room.<br><em>No Pitches.</em></h1>
+  <p class="hero-sub">A private executive dinner for senior marketing leaders &nbsp;·&nbsp; London &nbsp;·&nbsp; April 14th, 2026</p>
+  <a href="#request" class="hero-cta">Request Your Seat</a>
+  <div class="scroll-indicator">
+    <span></span>
+  </div>
 </section>
 
-<!-- COST BAR -->
-<div class="cost-bar" role="note">
-    <div class="cost-bar-inner">
-        <p>At £60–£80/hr, 10–15 hours/week of compliance admin costs you <strong>£31k–£62k per year</strong> — on work that shouldn't be touching your desk at 7pm.</p>
+<!-- ===== PROBLEM ===== -->
+<section class="problem">
+  <div class="container">
+    <div class="animate">
+      <p>You've sat through the conferences. The panels where nobody says anything real. The dinners with two hundred people where you leave with thirty business cards and zero relationships.</p>
+      <p>This isn't that.</p>
     </div>
-</div>
-
-<!-- PROBLEM -->
-<section class="section problem" aria-labelledby="problem-heading">
-    <div class="section-inner">
-        <p class="section-label" aria-hidden="true">The Breaking Point</p>
-        <h2 id="problem-heading">Manual Tracking Fails Between 5–7 Active Sites</h2>
-        <p>Below that, it's painful but manageable. Above it, something always slips through — and you find out at the worst possible moment. During an inspection. During a client audit. When a sub is already on site.</p>
-
-        <!-- ─── CHANGE 2: THREE STAT ROW ─── -->
-        <div class="stat-row">
-            <div class="stat-box">
-                <div class="stat-num">15hrs</div>
-                <div class="stat-label">Per week lost to cert chasing, expiry tracking, and file scrambles</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-num">£62k</div>
-                <div class="stat-label">Annual cost at £80/hr of time spent on work that shouldn't need it</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-num">5–7</div>
-                <div class="stat-label">Active sites — the threshold where manual tracking breaks every time</div>
-            </div>
-        </div>
-
-        <p>This is what running 6 sites without a compliance system looks like: chasing subs for insurance renewals, tracking cert expiries across projects, scrambling to organise files before audits.</p>
-
-        <ul class="failure-list">
-            <li>Insurance cert expired — discovered when the sub is already on site</li>
-            <li>CSCS card lapsed — flagged during HSE inspection, not before it</li>
-            <li>H&amp;S pack incomplete — 48-hour scramble before a client audit</li>
-            <li>Method statement outdated — sub submitted last year's version</li>
-            <li>Admin person on holiday — tracking stops entirely for two weeks</li>
-        </ul>
-
-        <div class="highlight-line">The question isn't whether something slips through. It's whether you find out during a check — or during an inspection.</div>
-    </div>
+  </div>
 </section>
 
-<!-- COMPARISON -->
-<section class="section comparison" aria-labelledby="comparison-heading">
-    <div class="section-inner">
-        <p class="section-label" aria-hidden="true">Infrastructure vs. Manual</p>
-        <h2 id="comparison-heading">The Difference Is Systematic vs. Manual</h2>
-
-        <div class="vs-grid">
-            <div class="vs-col bad">
-                <div class="vs-col-head">Manual Tracking</div>
-                <div class="vs-item">Hope nothing expires between periodic checks</div>
-                <div class="vs-item">Scramble when audit notices arrive with 48-hour deadlines</div>
-                <div class="vs-item">Discover compliance gaps during inspections — reactively</div>
-                <div class="vs-item">Tracking stops when your admin person is away</div>
-                <div class="vs-item">Still dealing with this at 7pm on a Thursday</div>
-            </div>
-            <div class="vs-col good">
-                <div class="vs-col-head">Systematic Coordination</div>
-                <div class="vs-item">Know exactly which subs have current vs expiring documents</div>
-                <div class="vs-item">Audit pack ready in 2 hours, not a 2-day scramble</div>
-                <div class="vs-item">Gaps flagged 30 days before expiry — proactively</div>
-                <div class="vs-item">Consistent coverage — no single point of failure</div>
-                <div class="vs-item">You focus on sites and margins, not cert admin</div>
-            </div>
-        </div>
-
-        <p class="vs-footer">The gap isn't effort or competence. It's infrastructure. At 5–7 sites, systematic coordination costs less than continuing to pay the manual tracking tax.</p>
+<!-- ===== FORMAT ===== -->
+<section class="format">
+  <div class="container">
+    <p class="section-label animate">The Format</p>
+    <div class="format-grid">
+      <div class="format-item animate">
+        <div class="format-number">01</div>
+        <h3>Twelve operators. One private dining room.</h3>
+        <p>No keynotes. No panels. No sponsors on stage. Just twelve senior leaders, hand-selected for the specific dynamics of this conversation.</p>
+      </div>
+      <div class="format-item animate">
+        <div class="format-number">02</div>
+        <h3>Engineered placement.</h3>
+        <p>Every seat is deliberate. Gordon personally curates who sits where based on complementary challenges, shared blind spots, and the conversations most likely to create real value.</p>
+      </div>
+      <div class="format-item animate">
+        <div class="format-number">03</div>
+        <h3>What leaves the room stays in the room.</h3>
+        <p>Chatham House rules. No recordings. No social media. The only content that comes out is a post-event white paper capturing the insights — never the names.</p>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- WHAT WE DO -->
-<section class="section what-we-do" id="what-we-do" aria-labelledby="services-heading">
-    <div class="section-inner">
-        <p class="section-label" aria-hidden="true">What Gets Coordinated</p>
-        <h2 id="services-heading">We Act as Your External Site Admin Office</h2>
-        <p>Operating in your time zone, using your existing software, following your SOPs. We work in Google Drive, SharePoint, Excel, and your project software. No new platforms to buy or learn.</p>
-
-        <div class="service-grid">
-            <div class="service-card">
-                <div class="service-card-title">Subcontractor Compliance</div>
-                <ul class="service-list">
-                    <li>Insurance certificates — collect, track expiries, chase renewals</li>
-                    <li>Operative certifications (CSCS, trade cards, safety tickets)</li>
-                    <li>30-day renewal reminders sent directly to subs</li>
-                    <li>Persistent chasing for missing or expiring documents</li>
-                    <li>CIS subcontractor records organised and audit-ready</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <div class="service-card-title">Documentation Coordination</div>
-                <ul class="service-list">
-                    <li>H&amp;S documents, method statements, permits filed and indexed</li>
-                    <li>Compliance registers maintained (current / expiring / missing)</li>
-                    <li>Audit-ready packs pre-organised — not built in a panic</li>
-                    <li>Weekly status reports to your ops lead</li>
-                    <li>Full activity log — every action documented</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="boundary-note">
-            <strong>The boundary:</strong> We handle chasing, tracking, organising, and flagging. You keep decisions, approvals, technical review, and enforcement. You define what's required — we make sure it exists, it's current, and it's organised.
-        </div>
+<!-- ===== WHO ===== -->
+<section class="who">
+  <div class="container">
+    <div class="animate">
+      <h2>This Room Is Not<br>for Everyone</h2>
+      <p>Built for senior marketing leaders — CMOs, CDOs, VPs, and Directors — at established brands navigating complex growth challenges.</p>
+      <p>If you're running a team, managing a P&L, or leading a transformation, this conversation was designed for you.</p>
+      <p>If you're looking to sell to the room, this isn't your table.</p>
     </div>
+  </div>
 </section>
 
-<!-- ─── CHANGE 3 & 4: FREE AUDIT + FORM ────────────────────── -->
-<section class="audit-section" id="audit" aria-labelledby="audit-heading">
-    <div class="audit-inner">
-        <p class="section-label" aria-hidden="true">No Commitment Required</p>
-        <h2 id="audit-heading" style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.9em,3vw,2.6em);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:20px;">Free 5-Point Compliance Audit</h2>
-
-        <div class="audit-grid">
-            <div class="audit-copy">
-                <p>Tell us your current setup. We review it across five areas and send back a one-page gap report within 24 hours. No call required to receive it.</p>
-                <p style="font-size:0.98em;color:var(--text-light);">Most contractors we audit have 2 or more untracked cert expiries running right now. The audit shows you exactly where they are.</p>
-
-                <ul class="audit-checklist">
-                    <li>Current cert tracking method reviewed</li>
-                    <li>Expiry flagging process assessed</li>
-                    <li>CIS verification workflow checked</li>
-                    <li>H&amp;S pack completeness evaluated</li>
-                    <li>Single point of failure risk identified</li>
-                </ul>
-
-                <p class="audit-promise">Each area scored: CURRENT / AT RISK / GAP IDENTIFIED<br>Delivered as a 1-page PDF · 24hr turnaround · No pitch attached</p>
-            </div>
-
-            <div class="audit-form" id="audit">
-                <div class="audit-form-title">Request Your Audit</div>
-                <div class="audit-form-sub">Free // 24hr turnaround // No call required</div>
-                <form action="https://formspree.io/f/mvzbnvzr" method="POST">
-
-                <div class="form-field">
-                    <label>Company Name</label>
-                    <input type="text" name="company" placeholder="Your firm name" required>
-                </div>
-                <div class="form-field">
-                    <label>Your Name</label>
-                    <input type="text" name="name" placeholder="First and last name" required>
-                </div>
-                <div class="form-field">
-                    <label>Email Address</label>
-                    <input type="email" name="email" placeholder="you@yourfirm.co.uk" required>
-                </div>
-                <div class="form-field">
-                    <label>Active Sites Right Now</label>
-                    <select name="sites">
-                        <option value="" disabled selected>Select range</option>
-                        <option>3–4 sites</option>
-                        <option>5–7 sites</option>
-                        <option>8–12 sites</option>
-                        <option>12+ sites</option>
-                    </select>
-                </div>
-                <div class="form-field">
-                    <label>How You Currently Track Compliance</label>
-                    <select name="current_method">
-                        <option value="" disabled selected>Select current method</option>
-                        <option>Spreadsheet / Excel</option>
-                        <option>One person manages it</option>
-                        <option>Project management software</option>
-                        <option>Mostly ad hoc</option>
-                        <option>No formal system</option>
-                    </select>
-                </div>
-                <div class="form-field">
-                    <label>Anything Specific to Flag (Optional)</label>
-                    <textarea name="notes" placeholder="e.g. upcoming audit, recent near-miss, specific concern"></textarea>
-                </div>
-
-                <button type="submit" class="form-submit">Send My Audit Request →</button>
-                <p class="form-note">24hr turnaround · No call required · No pitch attached</p>
-                </form>
-            </div>
-        </div>
+<!-- ===== TESTIMONIAL ===== -->
+<section class="testimonial">
+  <div class="container">
+    <div class="animate">
+      <p class="section-label" style="margin-bottom: 48px;">From the Room</p>
+      <blockquote>
+        The only dinner I've attended this year where actual business was done, not just discussed.
+      </blockquote>
+      <div class="divider" style="margin-bottom: 24px;"></div>
+      <cite>Director of Wealth — Tier 1 Global Bank</cite>
     </div>
+  </div>
 </section>
 
-<!-- ─── CHANGE 5: FAQS — VA REFERENCES REMOVED ────────────── -->
-<section class="section objections" aria-labelledby="faq-heading">
-    <div class="section-inner">
-        <p class="section-label" aria-hidden="true">Common Questions</p>
-        <h2 id="faq-heading">Why Contractors Choose This Over Alternatives</h2>
-
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <div class="faq-q"><span class="faq-q-prefix" aria-hidden="true">Q:</span>Why not just hire someone internally?</div>
-                <p class="faq-a"><strong>The internal hire reality:</strong></p>
-                <ol class="chase-steps">
-                    <li><span class="chase-num">—</span>£33k–£47k per year (salary + overheads)</li>
-                    <li><span class="chase-num">—</span>3–6 months before they're productive on your systems</li>
-                    <li><span class="chase-num">—</span>Single point of failure — sick days, holidays, resignation means tracking stops</li>
-                    <li><span class="chase-num">—</span>You're managing another employee</li>
-                </ol>
-                <p class="faq-a" style="margin-top:14px"><strong>What we provide:</strong></p>
-                <ol class="chase-steps">
-                    <li><span class="chase-num">—</span>Dedicated coordination — not dependent on one internal person</li>
-                    <li><span class="chase-num">—</span>Operational from Week 2, not Month 6</li>
-                    <li><span class="chase-num">—</span>Scales with your project count — 5 sites or 12 sites, same infrastructure</li>
-                    <li><span class="chase-num">—</span>You're buying a system, not managing headcount</li>
-                </ol>
-                <div class="faq-callout" role="note">
-                    <p>The question isn't "hire vs outsource." It's "single point of failure vs systematic infrastructure."</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q"><span class="faq-q-prefix" aria-hidden="true">Q:</span>We tried other solutions and they didn't understand construction.</div>
-                <p class="faq-a">Valid concern. Here's how this is different. <strong>Week 1 is onboarding.</strong> You tell us:</p>
-                <ol class="chase-steps">
-                    <li><span class="chase-num">—</span>What documents to track (insurance types, certs, permits)</li>
-                    <li><span class="chase-num">—</span>How to organise your filing structure</li>
-                    <li><span class="chase-num">—</span>When to escalate non-responsive subs</li>
-                    <li><span class="chase-num">—</span>What reporting format you need</li>
-                </ol>
-                <p class="faq-a" style="margin-top:14px">You're not teaching us construction. You're defining your requirements once and we run them systematically.</p>
-                <div class="faq-callout" role="note">
-                    <p><strong>This is coordination infrastructure, not compliance consulting.</strong> You define what's required — we make sure it's tracked, chased, and organised so nothing slips through.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q"><span class="faq-q-prefix" aria-hidden="true">Q:</span>We're concerned about external access to our systems.</div>
-                <p class="faq-a"><strong>You control access completely:</strong></p>
-                <ol class="chase-steps">
-                    <li><span class="chase-num">—</span>Role-based permissions — we only access folders you explicitly grant</li>
-                    <li><span class="chase-num">—</span>You can revoke access instantly at any time</li>
-                    <li><span class="chase-num">—</span>We work in your existing cloud storage — nothing downloaded to external systems</li>
-                </ol>
-                <div class="faq-callout" role="note">
-                    <p>Same permission controls you'd give an internal employee. Full visibility and control at all times. Data handling terms confirmed at onboarding.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q"><span class="faq-q-prefix" aria-hidden="true">Q:</span>What if our subs won't respond to you?</div>
-                <p class="faq-a">We use a documented chase protocol with clear escalation at every step:</p>
-                <ol class="chase-steps" aria-label="Chase protocol steps">
-                    <li><span class="chase-num" aria-label="Step 1">1</span>Email request with a clear deadline sent to sub</li>
-                    <li><span class="chase-num" aria-label="Step 2">2</span>Follow-up email after 5 days if no response</li>
-                    <li><span class="chase-num" aria-label="Step 3">3</span>Phone chase if still no response after 10 days</li>
-                    <li><span class="chase-num" aria-label="Step 4">4</span>Escalated to you after 3 documented attempts — you decide what happens next</li>
-                </ol>
-                <div class="faq-callout" role="note">
-                    <p>You discover non-compliance <strong>30 days before expiry</strong> instead of during an inspection. You retain full authority — we make sure nothing gets ignored.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q"><span class="faq-q-prefix" aria-hidden="true">Q:</span>How quickly can this actually be set up?</div>
-                <ol class="chase-steps">
-                    <li><span class="chase-num">W1</span>We build the structure — folders, registers, tracking system to your specs</li>
-                    <li><span class="chase-num">W2</span>Active coordination begins — chasing, reminders, filing underway</li>
-                    <li><span class="chase-num">W4</span>Fully systematised — 30–60 minutes/week from you</li>
-                </ol>
-                <div class="faq-callout" role="note">
-                    <p>Compare that to hiring internally (3–6 months to productivity) or continuing to burn 10–15 hours per week indefinitely.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q"><span class="faq-q-prefix" aria-hidden="true">Q:</span>What if this doesn't work for our structure?</div>
-                <p class="faq-a"><strong>Month 1 is a 30-day pilot.</strong> By the end of it, you'll know if this is:</p>
-                <ol class="chase-steps">
-                    <li><span class="chase-num">—</span>Recovering 10+ hours/week of time spent on compliance admin</li>
-                    <li><span class="chase-num">—</span>Organising compliance better than your current setup</li>
-                    <li><span class="chase-num">—</span>Worth continuing</li>
-                </ol>
-                <p class="faq-a" style="margin-top:14px">If it's not working, we adjust or part ways. Commitment terms are discussed at onboarding — no surprise contracts.</p>
-                <div class="faq-callout" role="note">
-                    <p>The time savings are structural. When someone else handles systematic chasing and tracking, you automatically get those hours back. Test it in 30 days with zero long-term risk.</p>
-                </div>
-            </div>
-
-        </div>
+<!-- ===== GORDON ===== -->
+<section class="gordon">
+  <div class="gordon-inner">
+    <div class="animate">
+      <p class="section-label">Your Host</p>
+      <img src="gordon.jpg" alt="Gordon Glenister" class="gordon-photo">
+      <h3>Gordon Glenister</h3>
+      <p class="gordon-credentials">
+        <span>Global Head of Influencer Marketing, BCMA</span>
+        <span>Host of Influence Global (200+ episodes)</span>
+        <span>Author, Influencer Marketing Strategy</span>
+        <span>Lecturer, Nottingham Business School</span>
+        <span>Journalist, London Evening Standard</span>
+      </p>
+      <p class="gordon-statement">A trusted advisor to senior leaders at some of the UK's most recognised brands, Gordon has spent over two decades curating rooms where the right people meet at the right time.</p>
     </div>
+  </div>
 </section>
 
-<!-- TIMELINE -->
-<section class="section timeline" aria-labelledby="timeline-heading">
-    <div class="section-inner">
-        <p class="section-label" aria-hidden="true">Setup Timeline</p>
-        <h2 id="timeline-heading">Operational From Week 2</h2>
-        <p>Compare that to hiring internally (3–6 months to productivity) or continuing to burn 10–15 hours per week indefinitely.</p>
+<!-- VIDEO SECTION: Add back when Gordon records his 60-second clip -->
 
-        <div class="week-grid">
-            <div class="week-item">
-                <div class="week-label">Week 1</div>
-                <div class="week-title">We Build the Structure</div>
-                <div class="week-desc">Folders, registers, and tracking system built to your specs. Your time: 3–4 hours defining requirements and granting access.</div>
-            </div>
-            <div class="week-item">
-                <div class="week-label">Week 2</div>
-                <div class="week-title">Active Coordination Begins</div>
-                <div class="week-desc">Chasing, reminders, and filing underway. Your time: 1–2 hours reviewing outputs.</div>
-            </div>
-            <div class="week-item">
-                <div class="week-label">Week 3</div>
-                <div class="week-title">Refinement</div>
-                <div class="week-desc">Adjusting protocols based on your feedback. Your time: 1–2 hours/week.</div>
-            </div>
-            <div class="week-item">
-                <div class="week-label">Week 4+</div>
-                <div class="week-title">Fully Systematised</div>
-                <div class="week-desc">Your time: 30–60 minutes/week reviewing status reports and handling escalations.</div>
-            </div>
-        </div>
-
-        <div class="time-note">
-            <p><strong>Who we work with:</strong> Construction firms managing 5–12 simultaneous projects. You're at the scale where manual tracking is breaking down but you can't justify a £35k–£45k full-time compliance hire.</p>
-        </div>
+<!-- ===== DETAILS ===== -->
+<section class="details">
+  <div class="container">
+    <p class="section-label animate">The Evening</p>
+    <div class="details-grid animate">
+      <div class="detail-item">
+        <p class="detail-label">Date</p>
+        <p class="detail-value">April 14th, 2026</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label">Time</p>
+        <p class="detail-value">6:30pm — 9:00pm</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label">Location</p>
+        <p class="detail-value">Private dining room<br>Central London</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label">Dress</p>
+        <p class="detail-value">Smart casual</p>
+      </div>
     </div>
+    <p style="text-align: center; font-size: 13px; color: #555; margin-top: 32px;" class="animate">Venue details shared upon confirmation of your seat.</p>
+  </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" aria-labelledby="cta-heading">
-    <h2 id="cta-heading">Stop Finding Out at the Wrong Moment.</h2>
-    <p>If you're running 5+ active sites and compliance tracking is held together by one person, a spreadsheet, or hope — the audit takes 24 hours and costs nothing.</p>
+<!-- ===== APPLICATION FORM ===== -->
+<section class="apply" id="request">
+  <div class="apply-inner">
+    <div class="animate">
+      <h2>Request Your Seat</h2>
+      <p>Seats are limited to twelve. Gordon personally reviews every request.</p>
 
-    <div class="cta-btn-group">
-        <a href="#audit" class="cta-btn-main">Get Free Compliance Audit →</a>
-        <span class="cta-divider">or</span>
-        <a href="https://calendly.com/juwon-siteadminoffice" class="cta-btn-secondary" target="_blank" rel="noopener">Book a 15-Minute Call →</a>
+      <form id="seatForm" action="https://formspree.io/f/xaqdvvpd" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" required placeholder="Your company">
+        </div>
+        <div class="form-group">
+          <label for="title">Job Title</label>
+          <input type="text" id="title" name="title" required placeholder="Your title">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Your email">
+        </div>
+        <div class="form-group">
+          <label for="challenge">What's the biggest challenge you're navigating right now? <span style="color: #555;">(Optional)</span></label>
+          <textarea id="challenge" name="challenge" placeholder="A few words is plenty"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Request Your Seat</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <h3>Request Received</h3>
+        <p>We'll be in touch within 48 hours to confirm your seat.</p>
+      </div>
     </div>
-
-    <p class="cta-sub">No pitch. Just an operational conversation about where your compliance admin time is going and whether this makes sense for your structure.</p>
+  </div>
 </section>
 
-<!-- CONTACT -->
-<div class="contact" aria-label="Contact information">
-    <h2>Contact</h2>
-    <a href="mailto:juwon@siteadminoffice.com" style="margin-top:12px">juwon@siteadminoffice.com</a>
-    <a href="https://calendly.com/juwon-siteadminoffice" target="_blank" rel="noopener">calendly.com/juwon-siteadminoffice</a>
-</div>
-
-<footer>
-    <p>&copy; 2025 Site Admin Office. All rights reserved.</p>
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <img src="logo.png" alt="Influence Roundtable" class="footer-logo">
+  <p style="margin-bottom: 16px;">By invitation only</p>
+  <a href="mailto:enquiries@influenceroundtable.com" style="font-family: var(--sans); font-size: 13px; color: var(--gold-dim); text-decoration: none; letter-spacing: 0.05em; transition: color 0.3s ease;">enquiries@influenceroundtable.com</a>
 </footer>
 
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Scroll reveal animation
+const observerOptions = {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+};
 
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Form submission
+const form = document.getElementById('seatForm');
+const success = document.getElementById('formSuccess');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const btn = form.querySelector('.submit-btn');
+  btn.textContent = 'SUBMITTING...';
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    if (response.ok) {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    } else {
+      btn.textContent = 'REQUEST YOUR SEAT';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  } catch (error) {
+    btn.textContent = 'REQUEST YOUR SEAT';
+    btn.disabled = false;
+    alert('Something went wrong. Please try again.');
+  }
+});
+</script>
 
 </body>
 </html>
